@@ -148,8 +148,8 @@ def segment_to_world(seg: SegmentGeom, frame: Frame) -> Tuple[np.ndarray, np.nda
 
     ports_world: List[Port] = []
     for port in seg.ports:
-        pos_w = frame.to_world(port.position)
-        dir_w = frame.R @ port.direction
+        pos_w = frame.to_world(port.position).reshape(3)
+        dir_w = np.asarray(frame.R @ port.direction, dtype=float).reshape(3)
         ports_world.append(Port(position=pos_w, direction=dir_w))
 
     return pts_world, seg.faces.copy(), ports_world

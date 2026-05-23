@@ -1,21 +1,39 @@
 # Python
 __pycache__/
-*.pyc
+*.py[cod]
 *.pyo
 *.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
 
 # Virtual environments
 .venv/
-venv/
+.venv_ct/
 env/
+venv/
 
-# IDE / editor stuff
+# Build/cache
+build/
+dist/
+*.egg-info/
+
+# Local outputs
+outputs/
+Exports/
+Figures/*_final/
+*.stl
+*.vtp
+*.vtk
+*.vtu
+*.obj
+*.ply
+
+# Logs
+*.log
+logs/
+
+# OS/editor
+.DS_Store
 .vscode/
 .idea/
-
-# OS files
-.DS_Store
-Thumbs.db
-
-# PyCharm / other
-*.iml
