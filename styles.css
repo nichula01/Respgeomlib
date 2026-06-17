@@ -1,0 +1,247 @@
+/* ============================================================
+   RespGeomLib — classic academic project page
+   ============================================================ */
+:root{
+  --bg:#ffffff;
+  --text:#1f2933;
+  --muted:#5f6b7a;
+  --link:#1f6fb2;
+  --navy:#0b3558;
+  --clinical:#f5f9fc;
+  --border:#d9e2ec;
+  --caption:#6b7280;
+  --code-bg:#f5f9fc;
+  --good:#1b7f5a;
+  --bad:#9b2c2c;
+  --maxw:960px;
+  --serif:"Source Serif 4", Georgia, "Times New Roman", serif;
+  --sans:"Inter", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+  --mono:"JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--sans);
+  font-size:17px;
+  line-height:1.68;
+  -webkit-font-smoothing:antialiased;
+}
+.page{max-width:var(--maxw);margin:0 auto;padding:0 24px 64px;position:relative;z-index:1}
+a{color:var(--link);text-decoration:none}
+a:hover{text-decoration:underline}
+b,strong{font-weight:600}
+sup{font-size:.7em;vertical-align:super;line-height:0}
+
+/* ---------- TITLE BLOCK ---------- */
+.title-block{text-align:center;padding:58px 0 30px;border-bottom:1px solid var(--border)}
+.hero-with-models{
+  display:grid;
+  grid-template-columns:170px minmax(0,1fr) 170px;
+  align-items:center;
+  column-gap:22px;
+}
+.hero-main{grid-column:2;min-width:0;text-align:center}
+.hero-side-model{
+  grid-row:1;
+  height:250px;
+  display:flex;align-items:center;justify-content:center;
+  pointer-events:none;opacity:.94;
+}
+.hero-side-model > div,.hero-side-model canvas{
+  width:100%;height:100%;display:block;
+}
+.hero-side-model-right{grid-column:3;transform:translateY(10px)}
+.paper-title{
+  font-family:var(--serif);
+  font-weight:700;
+  font-size:2.35rem;
+  line-height:1.22;
+  letter-spacing:0;
+  margin:0 auto 22px;
+  max-width:28ch;
+  color:var(--navy);
+}
+.authors{font-size:1.12rem;margin:0 0 6px;line-height:1.5;color:var(--text)}
+.affil{color:var(--muted);margin:0 0 4px;font-size:1rem}
+.venue{color:var(--navy);font-weight:600;margin:10px 0 0;font-size:1rem}
+.tldr{max-width:760px;margin:18px auto 0;color:var(--text);font-size:1rem;line-height:1.6}
+
+/* ---------- BUTTONS ---------- */
+.buttons{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:26px}
+.button{
+  display:inline-flex;align-items:center;justify-content:center;
+  background:var(--navy);color:#fff;
+  padding:8px 17px;border-radius:6px;
+  font-size:.95rem;font-weight:500;line-height:1;
+  border:1px solid var(--navy);
+  transition:background .15s ease,border-color .15s ease,color .15s ease;
+}
+.button:hover{background:#082a46;border-color:#082a46;text-decoration:none}
+.button-muted{background:#fff;color:var(--navy);border-color:var(--border)}
+.button-muted:hover{background:var(--clinical);color:var(--navy);border-color:#b9c8d8}
+.button-static,.button-static:hover{background:#fff;color:var(--navy);border-color:var(--border);cursor:default}
+
+/* ---------- SECTIONS ---------- */
+.section{padding:38px 0;border-bottom:1px solid var(--border)}
+.section:last-of-type{border-bottom:none}
+.section h2{
+  font-family:var(--serif);
+  font-size:1.6rem;font-weight:700;
+  margin:0 0 18px;letter-spacing:0;
+  color:var(--navy);
+}
+.section h3{
+  font-size:1.12rem;font-weight:600;
+  margin:28px 0 10px;color:var(--text);
+}
+.section p{margin:0 0 14px;max-width:74ch}
+.center{text-align:center}
+
+/* ---------- TEASER ---------- */
+.teaser{padding:34px 0 8px}
+
+/* ---------- FIGURES ---------- */
+figure{margin:18px 0;text-align:center}
+.paper-fig{
+  max-width:100%;height:auto;display:block;margin:0 auto;
+  border:1px solid var(--border);border-radius:6px;background:#fff;
+}
+figcaption{color:var(--caption);font-size:.92rem;line-height:1.55;margin-top:10px;max-width:72ch;margin-left:auto;margin-right:auto}
+/* graceful placeholder when a figure image is missing */
+.fig-missing{
+  display:flex;align-items:center;justify-content:center;text-align:center;
+  min-height:200px;padding:28px;
+  border:1px dashed #cfcfcf;border-radius:6px;background:var(--code-bg);
+  color:var(--muted);font-size:.95rem;
+}
+.fig-missing span{max-width:40ch}
+
+/* ---------- METHOD STEPS ---------- */
+.method-steps{margin:6px 0 0;padding-left:1.3em;max-width:74ch}
+.method-steps li{margin:7px 0}
+
+/* ---------- EQUATION ---------- */
+.equation{
+  text-align:center;font-family:var(--serif);
+  font-size:1.2rem;margin:20px auto 22px;padding:18px 14px;
+  background:#fff;border:1px solid var(--border);border-radius:6px;
+  overflow-x:auto;
+}
+.equation mjx-container{margin:0!important}
+.inline-code,.section .inline-code{
+  font-family:var(--mono);
+  font-size:.9em;background:var(--code-bg);padding:1px 6px;border-radius:4px;border:1px solid var(--border);
+}
+
+/* ---------- TABLES ---------- */
+.table-wrap{overflow-x:auto;margin:14px 0 6px}
+table{border-collapse:collapse;width:100%;font-size:.93rem;min-width:620px;background:#fff;border:1px solid var(--border)}
+caption{caption-side:bottom;text-align:left;color:var(--muted);font-size:.88rem;padding-top:10px;line-height:1.5}
+thead th{
+  text-align:left;font-weight:600;padding:9px 12px;
+  background:var(--clinical);border-bottom:1px solid var(--border);
+}
+tbody td{padding:9px 12px;border-bottom:1px solid var(--border)}
+tbody tr:last-child td{border-bottom:none}
+thead th:not(:first-child),tbody td:not(:first-child){text-align:right}
+.good{color:var(--good);font-weight:600}
+.bad{color:var(--bad);font-weight:600}
+
+/* ---------- 3D GEOMETRY PREVIEW ---------- */
+.model-tabs{
+  display:flex;justify-content:center;gap:10px;
+  margin:18px 0 10px;flex-wrap:wrap;
+}
+.model-tab{
+  border:1px solid #cbd5e1;background:#fff;color:var(--navy);
+  border-radius:6px;padding:8px 18px;
+  font-weight:600;cursor:pointer;font-family:inherit;font-size:.95rem;
+  transition:background .15s ease,border-color .15s ease,color .15s ease;
+}
+.model-tab:hover{background:var(--clinical);border-color:#b9c8d8}
+.model-tab.active{
+  background:var(--navy);color:#fff;border-color:var(--navy);
+}
+.model-description{
+  text-align:center;color:var(--muted);
+  font-size:.96rem;margin:0 auto 16px;max-width:68ch;
+}
+.model-preview{margin:18px 0 0}
+.model-viewer-frame{
+  position:relative;width:100%;height:520px;
+  border:1px solid var(--border);border-radius:10px;
+  background:#eef4f7;overflow:hidden;
+}
+#airway-three-viewer{
+  width:100%;height:100%;background:#eef4f7;
+}
+#airway-three-viewer canvas{
+  display:block;width:100%;height:100%;
+}
+.model-fallback{
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  max-width:none;margin:0;padding:24px;text-align:center;
+  color:var(--muted);background:#eef4f7;pointer-events:none;
+}
+.model-fallback[hidden]{display:none}
+.model-note{
+  text-align:center;color:var(--caption);
+  font-size:.88rem;margin:8px auto 0;
+}
+
+/* ---------- CODE ---------- */
+.code-block,pre.code-block{
+  background:var(--code-bg);border:1px solid var(--border);border-radius:6px;
+  padding:16px 18px;overflow-x:auto;margin:8px 0 0;
+}
+.code-block code{
+  font-family:var(--mono);
+  font-size:.88rem;line-height:1.6;color:#1a1a1a;white-space:pre;
+}
+
+/* ---------- BIBTEX ---------- */
+.bibtex{position:relative}
+.bibtex pre{
+  background:var(--code-bg);border:1px solid var(--border);border-radius:6px;
+  padding:18px;overflow-x:auto;margin:0;
+}
+.bibtex code{
+  font-family:var(--mono);
+  font-size:.86rem;line-height:1.6;color:#1a1a1a;white-space:pre;
+}
+.copy-btn{
+  position:absolute;top:10px;right:10px;
+  background:#fff;border:1px solid var(--border);border-radius:5px;
+  padding:5px 12px;font-size:.82rem;font-family:var(--sans);color:#444;cursor:pointer;
+  transition:background .15s ease;
+}
+.copy-btn:hover{background:#fff;border-color:#c8c8c8}
+.copy-btn.copied{background:var(--good);color:#fff;border-color:var(--good)}
+
+/* ---------- FOOTER ---------- */
+.footer{
+  text-align:center;color:var(--muted);font-size:.9rem;
+  padding:32px 0 8px;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width:680px){
+  body{font-size:16px}
+  .title-block{padding:40px 0 24px}
+  .paper-title{font-size:1.72rem;max-width:100%}
+  .button{flex:1 1 auto;justify-content:center}
+  .equation{font-size:1rem}
+}
+
+@media (max-width:1200px){
+  .hero-with-models{display:block}
+  .hero-side-model{display:none}
+}
+
+@media (max-width:700px){
+  .model-viewer-frame{height:380px}
+}
