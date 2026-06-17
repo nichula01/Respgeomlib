@@ -1,0 +1,18 @@
+# RespGeomLib Airway Studio — extra GUI dependencies
+#
+# The desktop "Airway Studio" app needs everything in the core engine plus a
+# Qt GUI stack. Install with:
+#
+#     pip install -r requirements.txt          # core engine
+#     pip install -r requirements_studio.txt   # GUI extras
+#
+# (equivalently:  pip install -e ".[studio]" )
+
+-r requirements.txt
+
+# Embeds the PyVista plotter inside a Qt window
+pyvistaqt>=0.4
+
+# GUI framework (PyQt6 recommended; PyQt5>=5.15 works as an alternative)
+PyQt6>=6.4
+# PyQt5>=5.15          # alternative if PyQt6 unavailable

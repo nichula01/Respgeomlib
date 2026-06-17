@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>RespGeomLib: A Reproducible Parametric Engine for Generating Analysis-Ready Human Airway Lumen Geometry</title>
+<meta name="description" content="RespGeomLib: a reproducible parametric engine for generating analysis-ready, CFD-ready human airway lumen geometry from compact YAML specifications. Accepted at IEEE MERCon 2026." />
+<meta property="og:title" content="RespGeomLib — Reproducible Parametric Airway Geometry Engine" />
+<meta property="og:description" content="Smooth, editable, port-defined, simulation-ready 3D airway lumen meshes from compact YAML specifications. Accepted at IEEE MERCon 2026." />
+<meta property="og:type" content="website" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [["\\(", "\\)"]],
+      displayMath: [["\\[", "\\]"]]
+    },
+    svg: { fontCache: "global" }
+  };
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+<script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+    }
+  }
+</script>
+</head>
+<body>
+
+<main class="page">
+
+  <!-- ============ TITLE BLOCK ============ -->
+  <header class="title-block hero-with-models">
+    <div class="hero-main">
+      <h1 class="paper-title">RespGeomLib: A Reproducible Parametric Engine for Generating Analysis-Ready Human Airway Lumen Geometry</h1>
+
+      <p class="authors">
+        Nichula Wasalathilaka, Parakrama Ekanayake, Roshan Godaliyadda
+      </p>
+      <p class="affil">University of Peradeniya, Sri Lanka</p>
+      <p class="venue">IEEE MERCon 2026 &middot; Accepted Paper</p>
+
+      <nav class="buttons" aria-label="Resources">
+        <a class="button" href="paper.pdf" target="_blank" rel="noopener">Paper</a>
+        <a class="button" href="https://github.com/nichula01/RespGeomLib" target="_blank" rel="noopener">Code</a>
+        <a class="button button-muted" href="#demo">Demo Coming Soon</a>
+        <a class="button" href="#citation">BibTeX</a>
+      </nav>
+      <p class="tldr">
+        RespGeomLib converts compact airway specifications into smooth, editable, port-defined, and CFD-ready 3D lumen meshes.
+      </p>
+    </div>
+
+    <div class="hero-side-model hero-side-model-right" aria-hidden="true">
+      <div id="hero-stl-right"></div>
+    </div>
+  </header>
+
+  <!-- ============ TEASER ============ -->
+  <section class="teaser">
+    <figure>
+      <img class="paper-fig" src="assets/figures/teaser.png"
+           alt="RespGeomLib pipeline from YAML specification to Pipe, Y2, and Y3 primitives, smooth blended junction, procedural airway tree, and CFD output." />
+      <figcaption>
+        RespGeomLib generates smooth, editable, analysis-ready airway lumen geometry from compact YAML specifications.
+      </figcaption>
+    </figure>
+  </section>
+
+  <!-- ============ OVERVIEW ============ -->
+  <section class="section">
+    <h2>Overview</h2>
+    <p>
+      RespGeomLib is a lightweight parametric geometry engine for creating smooth, editable human airway
+      lumen meshes from compact YAML specifications. Instead of relying on noisy CT segmentation alone or
+      stitching tube primitives with hard seams, it combines port-based assembly, smooth implicit junction
+      blending, and local mesh extraction around bifurcations. The result is a reproducible workflow for
+      generating airway geometries that are suitable for morphometry, controlled synthetic variants, and
+      downstream CFD preparation.
+    </p>
+  </section>
+
+  <!-- ============ WHY THIS MATTERS ============ -->
+  <section class="section">
+    <h2>Why this matters</h2>
+    <p>
+      Airway geometry is central to pulmonary morphometry and airflow simulation, but generating clean
+      analysis-ready airway surfaces remains difficult. CT-derived models can be fragmented or noisy near
+      distal branches, while simple procedural models often introduce seams and poorly defined boundary
+      ports. RespGeomLib targets the space between these approaches: reproducible enough for controlled
+      studies, but geometrically clean enough for downstream analysis.
+    </p>
+  </section>
+
+  <!-- ============ HOW IT WORKS ============ -->
+  <section class="section">
+    <h2>How RespGeomLib Works</h2>
+    <p>
+      RespGeomLib starts from a compact YAML file describing airway primitives, branch parameters, and
+      parent-child attachments. Each primitive exposes explicit ports, allowing the tree to be assembled
+      deterministically through local-to-world coordinate transforms. Straight and tapered airway segments
+      remain analytic, while bifurcations and trifurcations are generated locally using smooth implicit
+      blending and marching cubes. The final mesh is clipped and cleaned to preserve open inlet and outlet
+      boundaries.
+    </p>
+    <figure>
+      <img class="paper-fig" src="assets/figures/architecture.png"
+           loading="lazy"
+           alt="Overview of the RespGeomLib pipeline: local coordinate transform, implicit surface evaluation, marching cubes and clipping, output 3D airway." />
+      <figcaption>
+        Port-based assembly and local implicit extraction pipeline.
+      </figcaption>
+    </figure>
+    <ul class="method-steps">
+      <li><b>Specify:</b> define Pipe, Y2, and Y3 blocks in YAML.</li>
+      <li><b>Assemble:</b> attach primitives using explicit inlet/outlet ports.</li>
+      <li><b>Blend:</b> create smooth junctions using an implicit soft union.</li>
+      <li><b>Extract:</b> run local marching cubes only near junctions.</li>
+      <li><b>Export:</b> produce cleaned meshes for analysis and CFD preparation.</li>
+    </ul>
+    <h3>Reusable airway primitives</h3>
+    <p>
+      The engine currently supports straight or tapered pipes, two-way bifurcations, and three-way
+      junctions. These primitives can be combined hierarchically to form reproducible airway trees.
+    </p>
+    <figure>
+      <img class="paper-fig" src="assets/figures/building_blocks.png"
+           loading="lazy"
+           alt="RespGeomLib primitive building blocks including Pipe, Y2 bifurcation, and Y3 trifurcation primitives." />
+      <figcaption>
+        Reusable Pipe, Y2, and Y3 primitives for airway tree assembly.
+      </figcaption>
+    </figure>
+  </section>
+
+  <!-- ============ CORE TECHNICAL IDEA ============ -->
+  <section class="section">
+    <h2>Core Technical Idea</h2>
+    <div class="equation">
+      \[
+      \phi(x) =
+      -\frac{1}{\kappa}
+      \log\left(
+      \sum_{i=1}^{N}
+      e^{-\kappa \phi_i(x)}
+      \right)
+      \]
+    </div>
+    <p>
+      Instead of joining tube surfaces by Boolean stitching, RespGeomLib forms a smooth implicit union of
+      branch fields. The blend parameter \(\kappa\) controls how sharply or smoothly branch surfaces
+      merge, producing lumen-continuous bifurcations without internal walls.
+    </p>
+  </section>
+
+  <!-- ============ INTERACTIVE 3D GEOMETRY PREVIEW ============ -->
+  <section class="section" id="geometry-preview">
+    <h2>Interactive 3D Geometry Preview</h2>
+    <p>
+      RespGeomLib exports analysis-ready airway lumen meshes that can be inspected directly in the browser.
+      The examples below show a baseline geometry and controlled stenosis/dilation variants generated from
+      the same parametric framework.
+    </p>
+
+    <div class="model-tabs" role="tablist" aria-label="RespGeomLib geometry variants">
+      <button class="model-tab active" type="button" role="tab" aria-selected="true"
+              data-model="assets/figures/airway_closed_validation.stl"
+              data-description="Reference airway geometry generated from the base RespGeomLib specification.">
+        Baseline
+      </button>
+      <button class="model-tab" type="button" role="tab" aria-selected="false"
+              data-model="assets/figures/airway_closed_validation_stenosis.stl"
+              data-description="Controlled localized narrowing generated through parametric radius modulation.">
+        Stenosis
+      </button>
+      <button class="model-tab" type="button" role="tab" aria-selected="false"
+              data-model="assets/figures/airway_closed_validation_dilation.stl"
+              data-description="Controlled localized widening generated through parametric radius modulation.">
+        Dilation
+      </button>
+    </div>
+
+    <p class="model-description" id="model-description">
+      Reference airway geometry generated from the base RespGeomLib specification.
+    </p>
+
+    <figure class="model-preview">
+      <div class="model-viewer-frame">
+        <div id="airway-three-viewer"
+             role="img"
+             aria-label="Interactive 3D preview of a RespGeomLib-generated airway lumen mesh"></div>
+        <p class="model-fallback" id="model-fallback" hidden>
+          3D model preview could not be loaded.
+        </p>
+      </div>
+      <figcaption>
+        Interactive browser preview of RespGeomLib-generated airway lumen meshes: baseline, stenotic, and dilated variants.
+      </figcaption>
+    </figure>
+
+    <p class="model-note">
+      Large meshes may take a few seconds to load depending on network speed.
+    </p>
+  </section>
+
+  <!-- ============ EVIDENCE ============ -->
+  <section class="section">
+    <h2>Evidence</h2>
+    <p>
+      The current release is supported by three types of evidence: geometric quality checks,
+      computational scaling, and downstream CFD usability.
+    </p>
+
+    <h3>Cleaner junction geometry</h3>
+    <p>
+      A matched Y2 junction benchmark compares a Boolean/stitch baseline with the RespGeomLib smooth-min
+      formulation. RespGeomLib preserves the intended open ports while eliminating non-manifold edges and
+      improving port planarity.
+    </p>
+    <div class="table-wrap">
+      <table>
+        <caption>Junction-quality comparison between a Boolean/stitch baseline and RespGeomLib.</caption>
+        <thead>
+          <tr><th>Method</th><th>Loops</th><th>Non-manifold</th><th>Planarity (max)</th><th>Cap OK</th><th>Cells</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Boolean/stitch</td><td>3</td>
+            <td class="bad">6</td><td class="bad">5.9796</td><td class="bad">no</td><td>7213</td>
+          </tr>
+          <tr>
+            <td>RespGeomLib</td><td>3</td>
+            <td class="good">0</td><td class="good">0.0010</td><td class="good">yes</td><td>63436</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Efficient local extraction</h3>
+    <p>
+      Because implicit extraction is localized around junctions, RespGeomLib avoids whole-tree
+      voxelization. In balanced Y2 trees, local extraction was substantially faster and used less peak
+      memory than global implicit extraction.
+    </p>
+    <div class="table-wrap">
+      <table>
+        <caption>Runtime and memory comparison between local and global implicit extraction.</caption>
+        <thead>
+          <tr><th>Depth</th><th>Branches</th><th>Local RT (s)</th><th>Global RT (s)</th><th>Speed-up</th><th>L-Mem (MB)</th><th>G-Mem (MB)</th><th>Mem&times;</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td>3</td><td>0.074</td><td>5.640</td><td>76.7&times;</td><td>135.4</td><td>150.5</td><td>1.11&times;</td></tr>
+          <tr><td>2</td><td>7</td><td>0.185</td><td>37.358</td><td>201.8&times;</td><td>136.7</td><td>165.1</td><td>1.21&times;</td></tr>
+          <tr><td>3</td><td>15</td><td>0.420</td><td>117.519</td><td>279.8&times;</td><td>140.6</td><td>183.9</td><td>1.31&times;</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Controlled variants and CFD export</h3>
+    <figure>
+      <img class="paper-fig" src="assets/figures/synthetic_variants.png"
+           loading="lazy"
+           alt="Implicit Y-junction with parametric stenosis and dilation variants." />
+      <figcaption>
+        Controlled stenosis/dilation variants generated from a shared base specification.
+      </figcaption>
+    </figure>
+    <figure>
+      <img class="paper-fig" src="assets/figures/cfd.png"
+           loading="lazy"
+           alt="CFD demonstration on a RespGeomLib Y-junction: exported surface, volume mesh, velocity, pressure, and particle traces." />
+      <figcaption>
+        CFD usability demonstration using a RespGeomLib Y-junction in SimScale.
+      </figcaption>
+    </figure>
+    <p>
+      Localized radius modulation supports matched stenotic and dilated variants from the same base
+      geometry. Exported RespGeomLib geometries were also meshed and simulated in SimScale, with stable
+      steady incompressible convergence and a slightly asymmetric outlet flow split (46.5% vs. 53.5%).
+    </p>
+  </section>
+
+  <!-- ============ DEMO ============ -->
+  <section class="section" id="demo">
+    <h2>Browser Demo &mdash; Coming Soon</h2>
+    <p>
+      A lightweight browser demo is being prepared for editing airway parameters, previewing generated
+      geometry, and exporting meshes. The current release focuses on the accepted paper, reproducible
+      code, and interactive inspection of generated STL meshes.
+    </p>
+    <p class="center">
+      <span class="button button-muted button-static" aria-disabled="true">Demo Coming Soon</span>
+    </p>
+  </section>
+
+  <!-- ============ CODE ============ -->
+  <section class="section">
+    <h2>Code</h2>
+    <p>
+      The RespGeomLib codebase is publicly released to support reproducible airway geometry generation,
+      controlled synthetic variant creation, and CFD-ready export.
+    </p>
+    <p class="center">
+      <a class="button" href="https://github.com/nichula01/RespGeomLib" target="_blank" rel="noopener">
+        GitHub Repository
+      </a>
+    </p>
+    <p>
+      The same YAML-style specification used in the paper can be edited to generate new airway configurations.
+    </p>
+    <p>A minimal airway specification:</p>
+    <pre class="code-block"><code>- id: trachea
+  kind: pipe
+  L: 12.0
+  d: [1.8, 1.6]        # inlet, outlet diameter
+
+- id: main_bifurcation
+  kind: y2
+  parent: trachea
+  port: 0
+  L: [9.0, 9.0]
+  d: [1.3, 1.1]
+  theta: [28, 32]      # child elevation angles (deg)
+  blend: 2.0           # smooth-min sharpness (kappa)</code></pre>
+  </section>
+
+  <!-- ============ LIMITATIONS ============ -->
+  <section class="section">
+    <h2>Limitations</h2>
+    <p>
+      RespGeomLib is a reproducible geometry-generation engine, not a patient-specific airway
+      reconstruction method. The current release focuses on idealized lumen geometries, circular
+      cross-sections, and a limited set of primitive junction types. Broader anatomical variability,
+      non-circular cross-sections, wall thickness, and larger CFD validation studies remain future work.
+    </p>
+  </section>
+
+  <!-- ============ CITATION ============ -->
+  <section class="section" id="citation">
+    <h2>Citation</h2>
+    <div class="bibtex">
+      <button class="copy-btn" id="copyBib" type="button">Copy</button>
+      <pre id="bibtex"><code>@inproceedings{wasalathilaka2026respgeomlib,
+  title={RespGeomLib: A Reproducible Parametric Engine for Generating
+         Analysis-Ready Human Airway Lumen Geometry},
+  author={Wasalathilaka, Nichula and Ekanayake, Parakrama and Godaliyadda, Roshan},
+  booktitle={IEEE MERCon},
+  year={2026}
+}</code></pre>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    RespGeomLib &middot; University of Peradeniya &middot; IEEE MERCon 2026
+  </footer>
+
+</main>
+
+<script src="script.js"></script>
+<script type="module" src="airway-stl-viewer.mjs"></script>
+<script type="module" src="decorative-stl.mjs"></script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "respgeomlib"
+version = "0.1.0"
+description = "A reproducible parametric engine for generating analysis-ready human airway lumen geometry from compact YAML specifications."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { file = "LICENSE" }
+authors = [
+    { name = "Nichula Wasalathilaka", email = "e20425@eng.pdn.ac.lk" },
+    { name = "Parakrama Ekanayake", email = "mpbe@eng.pdn.ac.lk" },
+    { name = "Roshan Godaliyadda", email = "roshang@eng.pdn.ac.lk" },
+]
+keywords = [
+    "airway lumen geometry",
+    "pulmonary morphometry",
+    "respiratory modeling",
+    "implicit surface modeling",
+    "synthetic airway variants",
+    "CFD",
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Topic :: Scientific/Engineering :: Medical Science Apps.",
+    "Topic :: Scientific/Engineering :: Visualization",
+]
+dependencies = [
+    "numpy>=1.24",
+    "pyyaml>=6.0",
+    "pyvista>=0.43",
+    "vtk>=9.2",
+]
+
+[project.optional-dependencies]
+# Desktop "Airway Studio" GUI (PyQt + embedded PyVista viewer).
+studio = [
+    "pyvistaqt>=0.4",
+    "PyQt6>=6.4",
+]
+
+[project.urls]
+Homepage = "https://github.com/nichula01/RespGeomLib"
+Repository = "https://github.com/nichula01/RespGeomLib"
+
+[tool.setuptools]
+packages = ["respgeomlib"]

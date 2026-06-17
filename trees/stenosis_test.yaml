@@ -1,0 +1,36 @@
+- id: inlet
+  kind: pipe
+  params:
+    length: 4.0
+    d_in: 1.0
+    d_out: 1.0
+  parent_id: null
+  parent_port_index: null
+
+- id: stenotic_segment
+  kind: pipe_stenosis
+  params:
+    length: 3.0
+    d_in: 1.0
+    d_out: 1.0
+    n_theta: 32
+    n_z: 64
+    center: 0.5
+    width: 0.15
+    r_min_factor: 0.4
+  parent_id: inlet
+  parent_port_index: 1
+
+- id: dilated_segment
+  kind: pipe_dilation
+  params:
+    length: 3.0
+    d_in: 1.0
+    d_out: 1.0
+    n_theta: 32
+    n_z: 64
+    center: 0.5
+    width: 0.15
+    r_min_factor: 0.6
+  parent_id: stenotic_segment
+  parent_port_index: 1

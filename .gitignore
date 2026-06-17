@@ -1,0 +1,46 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# Environments
+.venv/
+venv/
+env/
+ENV/
+conda-env/
+*.egg-info/
+
+# Build artifacts
+build/
+dist/
+site/
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Logs and temporary outputs
+*.log
+logs/
+tmp/
+temp/
+
+# Large/raw medical data - keep generated examples/results, but avoid raw datasets
+*.nii
+*.nii.gz
+*.dcm
+*.mha
+*.mhd
+
+# Node/web cache if any
+node_modules/
+.cache/
+.parcel-cache/

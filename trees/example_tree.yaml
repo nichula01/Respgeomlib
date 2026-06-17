@@ -1,0 +1,80 @@
+- id: root
+  kind: pipe
+  params:
+    length: 6.0
+    d_in: 2.0
+    d_out: 1.0
+  parent_id: null
+  parent_port_index: null
+
+- id: Y2_main
+  kind: y2
+  params:
+    length_trunk: 6.0
+    length_child1: 4.0
+    length_child2: 4.0
+    d_trunk: 2.0
+    d_child1: 1.0
+    d_child2: 1.5
+    theta1_deg: 45.0
+    phi1_deg: 0.0
+    theta2_deg: 45.0
+    phi2_deg: 120.0
+  parent_id: root
+  parent_port_index: 1
+
+- id: pipe_left
+  kind: pipe
+  params:
+    length: 4.0
+    d_in: 1.0
+    d_out: 3.0
+  parent_id: Y2_main
+  parent_port_index: 2
+
+- id: Y3_distal
+  kind: y3
+  params:
+    length_trunk: 4.0
+    length_child1: 3.0
+    length_child2: 5.0
+    length_child3: 3.0
+    d_trunk: 2.0
+    d_child1: 1.0
+    d_child2: 2.0
+    d_child3: 2.0
+    theta1_deg: 45.0
+    phi1_deg: 0.0
+    theta2_deg: 45.0
+    phi2_deg: 120.0
+    theta3_deg: 45.0
+    phi3_deg: 240.0
+  parent_id: Y2_main
+  parent_port_index: 1
+
+- id: term_pipe_1
+  kind: pipe
+  params:
+    length: 3.0
+    d_in: 2.0
+    d_out: 2.0
+  parent_id: Y3_distal
+  parent_port_index: 1
+
+- id: term_pipe_2
+  kind: pipe
+  params:
+    length: 3.0
+    d_in: 2.0
+    d_out: 2.0
+  parent_id: Y3_distal
+  parent_port_index: 2
+
+- id: term_pipe_3
+  kind: pipe
+  params:
+    length: 3.0
+    d_in: 2.0
+    d_out: 2.0
+  parent_id: Y3_distal
+  parent_port_index: 3

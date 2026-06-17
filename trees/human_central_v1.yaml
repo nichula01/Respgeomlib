@@ -1,0 +1,135 @@
+# Central human airway model v1 (conducting zone up to lobar level)
+# Units: centimetres (cm)
+
+# Generation 0 – trachea
+- id: trachea
+  kind: pipe
+  params:
+    length: 12.0      # tracheal length ~12 cm
+    d_in: 1.8         # tracheal diameter ~1.8 cm
+    d_out: 1.8
+  parent_id: null
+  parent_port_index: null
+
+# Generation 1 – trachea → right & left main bronchi
+- id: Y_main
+  kind: y2
+  params:
+    # short trunk region near the carina
+    length_trunk: 2.0
+    d_trunk: 1.8
+
+    # right main bronchus (wider, shorter)
+    length_child1: 4.8
+    d_child1: 1.3
+
+    # left main bronchus (slightly narrower, longer)
+    length_child2: 8.0
+    d_child2: 1.1
+
+    # branching directions (tune later if needed)
+    theta1_deg: 40.0
+    phi1_deg: -20.0     # right side, slightly anterior
+    theta2_deg: 40.0
+    phi2_deg: 160.0     # left side
+  parent_id: trachea
+  parent_port_index: 1
+
+# Generation 2 – right main → 3 lobar bronchi (upper, middle, lower)
+- id: Y_right_lobes
+  kind: y3
+  params:
+    # trunk along right main bronchus
+    length_trunk: 2.0
+    d_trunk: 1.3
+
+    # 3 lobar bronchi, simplified
+    length_child1: 3.0   # right upper lobe
+    d_child1: 1.0
+
+    length_child2: 3.0   # right middle lobe
+    d_child2: 0.9
+
+    length_child3: 3.0   # right lower lobe
+    d_child3: 0.9
+
+    # spread them around the right main axis
+    theta1_deg: 35.0
+    phi1_deg: 0.0
+
+    theta2_deg: 35.0
+    phi2_deg: -70.0
+
+    theta3_deg: 35.0
+    phi3_deg: 70.0
+  parent_id: Y_main
+  parent_port_index: 1   # attach to right main bronchus branch
+
+# Generation 2 – left main → 2 lobar bronchi (upper, lower)
+- id: Y_left_lobes
+  kind: y2
+  params:
+    length_trunk: 3.0
+    d_trunk: 1.1
+
+    length_child1: 3.0    # left upper lobe
+    d_child1: 1.0
+
+    length_child2: 3.0    # left lower lobe
+    d_child2: 0.9
+
+    theta1_deg: 35.0
+    phi1_deg: 20.0
+
+    theta2_deg: 35.0
+    phi2_deg: 200.0
+  parent_id: Y_main
+  parent_port_index: 2   # attach to left main bronchus branch
+
+# Generation 3 – simple distal continuation pipes for each lobe
+# Right lung lobar terminations
+- id: right_upper_lobe_term
+  kind: pipe
+  params:
+    length: 3.0
+    d_in: 1.0
+    d_out: 0.7
+  parent_id: Y_right_lobes
+  parent_port_index: 1
+
+- id: right_middle_lobe_term
+  kind: pipe
+  params:
+    length: 3.0
+    d_in: 0.9
+    d_out: 0.6
+  parent_id: Y_right_lobes
+  parent_port_index: 2
+
+- id: right_lower_lobe_term
+  kind: pipe
+  params:
+    length: 3.5
+    d_in: 0.9
+    d_out: 0.6
+  parent_id: Y_right_lobes
+  parent_port_index: 3
+
+# Left lung lobar terminations
+- id: left_upper_lobe_term
+  kind: pipe
+  params:
+    length: 3.0
+    d_in: 1.0
+    d_out: 0.7
+  parent_id: Y_left_lobes
+  parent_port_index: 1
+
+- id: left_lower_lobe_term
+  kind: pipe
+  params:
+    length: 3.5
+    d_in: 0.9
+    d_out: 0.6
+  parent_id: Y_left_lobes
+  parent_port_index: 2

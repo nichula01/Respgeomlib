@@ -1,0 +1,14 @@
+# RespGeomLib — core runtime dependencies
+#
+# Install with:  pip install -r requirements.txt
+# (or, for an editable package install:  pip install -e . )
+
+# Core geometry engine
+numpy>=1.24
+pyyaml>=6.0
+
+# 3-D mesh processing, I/O, quality checks and STL export
+pyvista>=0.43
+vtk>=9.2
+scipy>=1.14
+trimesh>=4.0
