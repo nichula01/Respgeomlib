@@ -1,6 +1,27 @@
-# RespGeomLib
+<div align="center">
 
-**A reproducible parametric engine for generating analysis-ready human airway lumen geometry.**
+# 🫁 RespGeomLib
+
+### A reproducible parametric engine for generating analysis-ready human airway lumen geometry.
+
+<br/>
+
+<p>
+  <img alt="Python" src="https://img.shields.io/badge/Python-%E2%89%A53.9-3776AB?style=for-the-badge&logo=python&logoColor=white"/>
+  <img alt="Venue" src="https://img.shields.io/badge/IEEE_MERCon-2026-00629B?style=for-the-badge&logo=ieee&logoColor=white"/>
+  <img alt="Status" src="https://img.shields.io/badge/Status-Accepted-2EA44F?style=for-the-badge"/>
+  <img alt="License" src="https://img.shields.io/badge/License-See_LICENSE-555555?style=for-the-badge"/>
+</p>
+
+<p>
+  <img alt="CFD-ready" src="https://img.shields.io/badge/CFD-ready-FF6A00?style=flat-square"/>
+  <img alt="STL / PLY / VTP" src="https://img.shields.io/badge/Export-STL_·_PLY_·_VTP-6A5ACD?style=flat-square"/>
+  <img alt="YAML-driven" src="https://img.shields.io/badge/Spec-YAML--driven-CB171E?style=flat-square"/>
+</p>
+
+</div>
+
+<br/>
 
 RespGeomLib converts compact **YAML airway specifications** into smooth, editable, and simulation-ready 3D lumen meshes with explicit inlet/outlet ports.
 
@@ -20,7 +41,7 @@ This repository accompanies the paper:
 
 ---
 
-## Highlights
+## ✨ Highlights
 
 | Capability                    | Description                                                                                |
 | ----------------------------- | ------------------------------------------------------------------------------------------ |
@@ -34,7 +55,7 @@ This repository accompanies the paper:
 
 ---
 
-## Repository layout
+## 📂 Repository layout
 
 ```text
 RespGeomLib/
@@ -66,7 +87,7 @@ RespGeomLib/
 
 ---
 
-## Installation
+## ⚙️ Installation
 
 Requires **Python ≥ 3.9**.
 
@@ -96,7 +117,7 @@ pip install -r requirements_studio.txt
 
 ---
 
-## Quickstart
+## 🚀 Quickstart
 
 ### 1. Build a mesh from a YAML file
 
@@ -138,7 +159,7 @@ python app/airway_studio.py
 
 ---
 
-## YAML tree format
+## 📝 YAML tree format
 
 RespGeomLib trees are defined as a list of connected segments.
 
@@ -197,7 +218,7 @@ trees/stenosis_test.yaml
 
 ---
 
-## Example tree specifications
+## 🌳 Example tree specifications
 
 | File                                              | Description                                        |
 | ------------------------------------------------- | -------------------------------------------------- |
@@ -210,7 +231,7 @@ trees/stenosis_test.yaml
 
 ---
 
-## Reproducing paper workflows
+## 🔁 Reproducing paper workflows
 
 Run all commands from the repository root.
 
@@ -247,7 +268,7 @@ python example_human_airway_colored.py
 
 ---
 
-## Airway Studio
+## 🖥️ Airway Studio
 
 The optional desktop GUI supports:
 
@@ -266,7 +287,7 @@ python app/airway_studio.py
 
 ---
 
-## Project website
+## 🌐 Project website
 
 The paper website is included in:
 
@@ -284,7 +305,7 @@ It contains:
 
 ---
 
-## Citation
+## 📖 Citation
 
 If you use RespGeomLib, please cite:
 
@@ -302,6 +323,6 @@ Citation details will be updated after the official IEEE proceedings release.
 
 ---
 
-## License
+## 📜 License
 
 See [`LICENSE`](LICENSE).
