@@ -11,7 +11,7 @@ __pycache__/
 # Environments
 .venv/
 venv/
-env/
+env/ 
 ENV/
 conda-env/
 *.egg-info/
