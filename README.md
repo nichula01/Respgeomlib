@@ -12,7 +12,7 @@
   <img alt="Status" src="https://img.shields.io/badge/Status-Accepted-2EA44F?style=for-the-badge"/>
   <img alt="License" src="https://img.shields.io/badge/License-See_LICENSE-555555?style=for-the-badge"/>
 </p>
- 
+  
 <p>
   <img alt="CFD-ready" src="https://img.shields.io/badge/CFD-ready-FF6A00?style=flat-square"/>
   <img alt="STL / PLY / VTP" src="https://img.shields.io/badge/Export-STL_·_PLY_·_VTP-6A5ACD?style=flat-square"/>
