@@ -5,6 +5,7 @@ the engine quickly. (Drop the paper PDF into this `docs/` folder for reference.)
 
 ## Pipeline overview
 
+
 ```
 YAML spec ─▶ load_specs_from_yaml ─▶ build_tree ─▶ merge_built_segments ─▶ mesh
             (tree_builder.py)        (port-based     (concatenate         (STL/PLY/
